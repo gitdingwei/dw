@@ -3,13 +3,13 @@ package com.jk.controller;
 
 import com.jk.model.Dw;
 import com.jk.service.DwService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-
 @Controller
 @RequestMapping(value="dw")
 public class DwController {
@@ -18,8 +18,16 @@ public class DwController {
     //查询
     @RequestMapping(value="querydw")
     @ResponseBody
-    public List<Dw> querydw(){
-   return dwservice.querydw();
+    public String querydw(){
+        List list =dwservice.querydw();
+        JSONObject obj=new JSONObject();
+//前台通过key值获得对应的value值
+        obj.put("code", 0);
+        obj.put("msg", "");
+        obj.put("count",1000);
+        obj.put("data",list);
+
+        return obj.toString();
     }
     //新增
     @RequestMapping(value="adddw")
